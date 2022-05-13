@@ -8,7 +8,7 @@ TODO: Detect available GPU size and automatically change to CPU mode.
 
 ## A simple example
 
-You can check a notebook `run/simple_example.ipynb`
+You can check a notebook `./simple_example.ipynb`
 
 ## Required python packages
 
