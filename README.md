@@ -6,9 +6,9 @@ The proposed method (BU3D) unrolls an existing Bayesian method [2] into a new ne
 
 TODO: Detect available GPU size and automatically change to CPU mode.
 
-## A simple example
+## A simple example in colab
 
-You can check a notebook `./simple_example.ipynb`
+You can open the CoLab notebook https://colab.research.google.com/github/jakeoung/BayesianUnrolling/blob/master/BU3D_simple_example.ipynb
 
 ## Required python packages
 
