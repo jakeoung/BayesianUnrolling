@@ -8,7 +8,7 @@ TODO: Detect available GPU size and automatically change to CPU mode.
 
 ## A simple example
 
-You can open the CoLab notebook https://colab.research.google.com/drive/1_tnB7tzj2waNyWhhqUd9uNtFzqTO2HZD?usp=sharing
+You can open the CoLab notebook https://colab.research.google.com/github/jakeoung/BayesianUnrolling/blob/master/BU3D_simple_example.ipynb
 
 ## Required python packages
 
