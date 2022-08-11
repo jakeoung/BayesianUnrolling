@@ -18,29 +18,29 @@ You can open the CoLab notebook https://colab.research.google.com/github/jakeoun
 
 ## Testing
 
-We provide the pretrained model in `run/model_baseline.pth`. Our method works on both CPU and GPU and the provided code automatically detects if there is an available GPU. (For large histogram data, it might require the 14GB of GPU memory. If you don't have such GPU, you can still run on CPU, by setting the environment `export CUDA_VISIBLE_DEVICES=""`.)
+We provide the pretrained model in `demo/model_baseline.pth`. Our method works on both CPU and GPU and the provided code automatically detects if there is an available GPU. (For large histogram data, it might require the 14GB of GPU memory. If you don't have such GPU, you can still run on CPU, by setting the environment `export CUDA_VISIBLE_DEVICES=""`.)
 
 ### Synthetic data (Art and Reindeer scene in the middlebury dataset [3])
 
-We provide a synthetic data of Art scene in `run/Art_4.0_1.0` (with PPP=4 and SBR=1). The additional testing data for Art and Reindeer scene can be downloaded [here](https://drive.google.com/file/d/1HtJxjWHd-53-Z6qDqmXaHbycP9QlFG6z/view?usp=sharing) with different levels of PPP and SBR.
+We provide a synthetic data of Art scene in `demo/Art_4.0_1.0` (with PPP=4 and SBR=1). The additional testing data for Art and Reindeer scene can be downloaded [here](https://drive.google.com/file/d/1HtJxjWHd-53-Z6qDqmXaHbycP9QlFG6z/view?usp=sharing) with different levels of PPP and SBR.
 
 To test on such data, open the command and type:
 ```
-cd run
+cd demo
 python test_middlebury1024.py
 ```
-In this python file, we shift the system impulse response function (`run/irf/irf_middlebury1024.mat`) and use FFT to generate initial multiscale depths. These multiscale depths are used as an input of the proposed network.
+In this python file, we shift the system impulse response function (`demo/irf/irf_middlebury1024.mat`) and use FFT to generate initial multiscale depths. These multiscale depths are used as an input of the proposed network.
 
 
 ### Real data
 
-To test the real data provided by [4] Lindell et al., download the data [here](https://www.computationalimaging.org/publications/single-photon-3d-imaging-with-deep-sensor-fusion/). You need to put mat data files on `run` folder such as `checkerboard.mat`. (We already included an approximated impulse response function in `run/irf/irf_real.mat`)
+To test the real data provided by [4] Lindell et al., download the data [here](https://www.computationalimaging.org/publications/single-photon-3d-imaging-with-deep-sensor-fusion/). You need to put mat data files on `demo` folder such as `checkerboard.mat`. (We already included an approximated impulse response function in `demo/irf/irf_real.mat`)
 
-Go to `run` folder and execute `python test_real.py`. You need to change the scene name in the main function. The outputs will be saved in `$ROOT/result/` folder.
+Go to `demo` folder and execute `python test_real.py`. You need to change the scene name in the main function. The outputs will be saved in `$ROOT/result/` folder.
 
 ### Your own data
 
-I recommend you to check the ipython notebook `run/simple_example.ipynb`. To test your own data, the basic procedure is:
+I recommend you to check the ipython notebook `demo/simple_example.ipynb`. To test your own data, the basic procedure is:
 
 1. Prepare a histogram data of shape [height x width x timebins]
 2. Prepare an impulse response function and shift it to prepare for using FFT, using the function `shift_h`
@@ -92,8 +92,8 @@ If everything is alright, you can see the trainnig data in `$ROOT/data` folder.
 ```
 pip install h5py, tensorboard
 ```
-- Go to `$ROOT/run` folder and run `python train.py`. The training would take around 9 hours on a linux server with the NVIDIA RTX 3090 GPU and the resulting model file (.pth) can be found in `result/mpi` folder.
-- You can load such pth file to test your data. For example, replace `run/model_baseline.pth` with your pth file and run `test_middlebury1024.py` there. Note that if you change some settings when training, you need to specify the changes when you load the model: e.g. `model = Model(nscale=12, nblock=3)`.
+- Go to `$ROOT/demo` folder and run `python train.py`. The training would take around 9 hours on a linux server with the NVIDIA RTX 3090 GPU and the resulting model file (.pth) can be found in `result/mpi` folder.
+- You can load such pth file to test your data. For example, replace `demo/model_baseline.pth` with your pth file and run `test_middlebury1024.py` there. Note that if you change some settings when training, you need to specify the changes when you load the model: e.g. `model = Model(nscale=12, nblock=3)`.
 
 ## Reference
 
