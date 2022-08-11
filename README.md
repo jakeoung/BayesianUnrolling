@@ -56,7 +56,7 @@ To get started, you can copy the file `run_middlebury1024.py` and modify it, to 
 add Random FileIO Plots Images ImageFiltering DrWatson Distributions HDF5 StatsBase Statistics FFTW MAT Flux FourierTools
 ```
 
-- Download [middlebury data](https://vision.middlebury.edu/stereo/data/) for 2005 and 2006 datasets and save them, so that the file structure should be like:
+- Download [middlebury data](https://vision.middlebury.edu/stereo/data/) for 2005 and 2006 datasets (HalfSize and save them, so that the file structure should be like: (You can also refer to `train/download_data.sh`)
 ```
 $ROOT/data/middlebury/raw/Aloe/disp1.png
 $ROOT/data/middlebury/raw/Aloe/view1.png
