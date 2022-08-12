@@ -76,7 +76,7 @@ $ROOT/data/mpi/training/disparities/alley_2/frame_0001.png
 
 - From the root folder, run
 ```
-cd train_gen_data
+cd train
 julia create_data_middlebury.jl 1.0 1.0   # it will make training data from middlebury data with SBR=1.0, PPP=1.0
 julia create_data_middlebury.jl 1.0 64.0  # with SBR=1.0, PPP=64.0
 julia create_data_middlebury.jl 64.0 1.0
