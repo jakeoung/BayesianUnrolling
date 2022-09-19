@@ -18,6 +18,8 @@ using MAT
 using Flux
 using Random
 
+save_train = true
+
 include("gen_hist.jl")
 include("gen_multiscale.jl")
 
