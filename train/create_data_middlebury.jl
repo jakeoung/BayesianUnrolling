@@ -36,7 +36,6 @@ using Flux
 # using Pkg; Pkg.build("PyPlot")
 # import PyPlot
 save_train = true
-save_test = true
 
 include("gen_hist.jl")
 include("gen_multiscale.jl")
@@ -87,8 +86,6 @@ H_patch = 256
 W_patch = 256
 stride_patch = 48
 
-train_idx = [1,3,4,5,6,7,8,9]
-
 # train_depths = zeros(Float32, ntrain, nscale, 25x, 256)
 # train_refls = zeros(Float32, ntrain, nscale, 256, 256)
 
@@ -96,7 +93,6 @@ list_depths = Array{Float32, 3}[]
 list_refls = Array{Float32, 3}[]
 list_depths_gt = Array{Float32, 2}[]
 list_refls_gt = Array{Float32, 2}[]
-idx_train = 0
 
 #---------------------------------------
 # construct impulse response function
@@ -188,10 +184,6 @@ for (i,seq) in enumerate(["Aloe" "Books" "Bowling1" "Dolls" "Laundry" "Midd1" "M
     #------------------------------------------------
     # for ART, we make the size the same as Reindeer
     depth = depth_
-    if i in test_idx
-        depth = depth[:, end-W_test+1:end]
-        refl = refl[:, end-W_test+1:end]
-    end
 
     reflc = channelview(refl)
     reflg = Float32.(Gray.(refl))
@@ -303,9 +295,7 @@ for (i,seq) in enumerate(["Aloe" "Books" "Bowling1" "Dolls" "Laundry" "Midd1" "M
 
     depths ./= T
     r_scale = maximum(refls[:,:,nscale])
-    if i in train_idx
-        refls ./= r_scale 
-    end
+    refls ./= r_scale 
     r_gt_n ./= maximum(r_gt_n)
 
     default(yflip=true)
@@ -316,15 +306,13 @@ for (i,seq) in enumerate(["Aloe" "Books" "Bowling1" "Dolls" "Laundry" "Midd1" "M
     # (optional) extract patches
     #------------------------------------------------
     if save_train
-        if i in train_idx
-            for stride in [1 2]
-                for ww=1:stride_patch:W - stride*W_patch+1
-                    for hh=1:stride_patch:H - stride*H_patch+1
-                        push!(list_depths, depths[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1, 1:nscale*nirf])
-                        push!(list_refls, refls[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1, 1:nscale*nirf])
-                        push!(list_depths_gt, d_gt_n[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1])
-                        push!(list_refls_gt, r_gt_n[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1])
-                    end
+        for stride in [1 2]
+            for ww=1:stride_patch:W - stride*W_patch+1
+                for hh=1:stride_patch:H - stride*H_patch+1
+                    push!(list_depths, depths[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1, 1:nscale*nirf])
+                    push!(list_refls, refls[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1, 1:nscale*nirf])
+                    push!(list_depths_gt, d_gt_n[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1])
+                    push!(list_refls_gt, r_gt_n[hh:stride:hh+stride*H_patch-1, ww:stride:ww+stride*W_patch-1])
                 end
             end
         end
