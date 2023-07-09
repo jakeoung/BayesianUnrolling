@@ -227,6 +227,8 @@ for (i, seq) in enumerate(seqs):
     #------------------------------------------------
     # (optional) extract patches
     #------------------------------------------------
+    d_gt_n = torch.tensor(d_gt_n)
+    r_gt_n = torch.tensor(r_gt_n)
 
     if btrain:
         for stride in [1, 2]:
@@ -255,19 +257,11 @@ for (i, seq) in enumerate(seqs):
 #-----------------------------------------------
 import h5py
 if btrain:
-    # rm("$ddata/train_$fname", force=true)
-    # rm("$ddata/tof_$fname", force=true)
-    # H W C B -> W H C B in julia when saving h5file
-    # it will load [B C H W] in python   H W C
-
-    
     with h5py.File(f"{ddata}/{fname}", 'w') as hf:
         hf["depths"] = torch.stack(list_depths, 0)
         hf["refls"] = torch.stack(list_refls, 0)
-        hf["depths_gt"] = torch.stack(list_depths_gt, 0)
-        hf["refls_gt"] = torch.stack(list_refls_gt, 0)
+        hf["depths_gt"] = torch.stack(torch.tensor(list_depths_gt), 0)
+        hf["refls_gt"] = torch.stack(torch.tensor(list_refls_gt), 0)
 
-    # h5write("$ddata/train_$fname", "/depths", list_depths_pyshape)
-    # h5write("$ddata/train_$fname", "/refls", list_refls_pyshape)
-    # h5write("$ddata/train_$fname", "/depths_gt", list_depths_gt)
-    # h5write("$ddata/train_$fname", "/refls_gt", list_refls_gt)
+# with h5py.File(f"{ddata}/{fname}", 'r') as hf:
+#     print(type(hf["depths"][0]))
