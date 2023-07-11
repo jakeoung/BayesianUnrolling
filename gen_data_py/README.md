@@ -5,7 +5,9 @@ In the terminal, run
 `bash download_data.sh 0`
 `bash download_data.sh 1`
 
-Then, it will download middlebury dataset and MPI dataset. Next, run
+Then, it will download middlebury dataset and MPI dataset.
+
+Next, run
 
 `python create_data_middlebury.py 32 64`
 
