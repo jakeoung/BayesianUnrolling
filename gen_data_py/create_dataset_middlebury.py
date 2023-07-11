@@ -158,6 +158,7 @@ for (i, seq) in enumerate(seqs):
     depth_ = T_max_val - disp  # 0 250 => 50 - 300
     
     # save images to check
+    plt.imsave(f"{ddata}/images/{seq}-depth.png", depth_)
     # [ ] TODO: display {disp}
 
     #------------------------------------------------
@@ -260,8 +261,8 @@ if btrain:
     with h5py.File(f"{ddata}/{fname}", 'w') as hf:
         hf["depths"] = torch.stack(list_depths, 0)
         hf["refls"] = torch.stack(list_refls, 0)
-        hf["depths_gt"] = torch.stack(torch.tensor(list_depths_gt), 0)
-        hf["refls_gt"] = torch.stack(torch.tensor(list_refls_gt), 0)
+        hf["depths_gt"] = torch.stack(list_depths_gt, 0)
+        hf["refls_gt"] = torch.stack(list_refls_gt, 0)
 
 # with h5py.File(f"{ddata}/{fname}", 'r') as hf:
 #     print(type(hf["depths"][0]))
