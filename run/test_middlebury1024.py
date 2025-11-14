@@ -29,7 +29,8 @@ def main():
     t0 = time.time()
 
     irf_ = scipy.io.loadmat("irf/irf_middlebury1024.mat")["irf"][0,:]    
-    h1 = torch.FloatTensor(shift_h(irf_, T))
+    h1 = shift_h(irf_, T)
+    h1 = torch.FloatTensor(np.flip(h1).copy())
 
     L = 12
     depths = gen_initial_multiscale(tof, h1, L)
